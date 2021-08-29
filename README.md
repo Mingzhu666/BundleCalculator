@@ -72,17 +72,27 @@ test
 ```
 
 Main.java is the starting point of the program, being responsible for inputting and outputting.
+
 Calculator.java is the class to return BundlesCharge which includes bundlesCharge and totalCost.
+
 config.properties store the configurable parameters for different types of bundles.
+
 OrderItem.java is the order for a specific type of bundle.
+
 FormatCode.java is the enumeration of format code.
+
 BundlesCharge.java  has an array of the number of bundles and the total cost.
+
 Bundles.java are different types of bundles.
+
 Bundles.java is to print out the result.
 
 BundlesTest.java are the JUnit 5 tests for Bundles.java.
+
 CalculatorTest.java are the JUnit 5 tests for Calculator.java.
+
 MainFunctionTest.java are the JUnit 5 tests for Main.java.
+
 PrintResultTest.java are the JUnit 5 tests for PrintResult.java.
 
 ## Run the program
