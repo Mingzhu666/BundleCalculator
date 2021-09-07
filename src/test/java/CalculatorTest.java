@@ -1,156 +1,71 @@
+import Controller.Calculator;
+import Model.BundlesCharge;
+import Model.Order;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class CalculatorTest {
     @Test
-    void calculateTestOne() throws IOException {
+    void testCalculateOrderCostIMG() throws IOException {
         //105 IMG
-        int numOfOrder = 105;
+        String formatCode = "IMG";
+        int numOfItem = 105;
         double expectedResult = 8450;
-        FormatCode formatCode = FormatCode.valueOf("IMG");
-        BundlesCharge calculateResult = Calculator.calculate(numOfOrder, formatCode);
-        assertArrayEquals(new int[]{1, 10}, calculateResult.getNumOfBundle());
-        assertEquals(expectedResult, calculateResult.getTotalCost());
+        ArrayList<Integer> expectedNumofBundle = new ArrayList<Integer>(Arrays.asList(1, 10));
+
+        Calculator calculator = new Calculator();
+        Order order = new Order();
+        order.orderAdd(numOfItem, formatCode);
+        List<BundlesCharge> calculateResult = calculator.CalculatorOrderCost(order);
+
+        assertEquals(formatCode, calculateResult.get(0).getFormatCode());
+        assertEquals(numOfItem, calculateResult.get(0).getNumOfItem());
+        assertEquals(expectedNumofBundle, calculateResult.get(0).getNumOfBundle());
+        assertEquals(expectedResult, calculateResult.get(0).getTotalCost());
     }
 
     @Test
-    void calculateTestTwo() throws IOException {
-        //101 IMG
-        int numOfOrder = 101;
-        double expectedResult = 8450;
-        FormatCode formatCode = FormatCode.valueOf("IMG");
-        BundlesCharge calculateResult = Calculator.calculate(numOfOrder, formatCode);
-        assertArrayEquals(new int[]{1, 10}, calculateResult.getNumOfBundle());
-        assertEquals(expectedResult, calculateResult.getTotalCost());
-    }
-
-    @Test
-    void calculateTestThree() throws IOException {
-        //8 IMG
-        int numOfOrder = 8;
-        double expectedResult = 800;
-        FormatCode formatCode = FormatCode.valueOf("IMG");
-        BundlesCharge calculateResult = Calculator.calculate(numOfOrder, formatCode);
-        assertArrayEquals(new int[]{0, 1}, calculateResult.getNumOfBundle());
-        assertEquals(expectedResult, calculateResult.getTotalCost());
-    }
-
-    @Test
-    void calculateSumTestOne() throws IOException {
-        int[] bundlesCharge = {1, 10};
-        double expectedResult = 8450;
-        FormatCode formatCode = FormatCode.valueOf("IMG");
-        Bundles bundles = new Bundles(formatCode);
-        double sum = Calculator.calculateSum(bundlesCharge, bundles);
-        assertEquals(expectedResult, sum);
-    }
-
-    @Test
-    void calculateSumTestTwo() throws IOException {
-        int[] bundlesCharge = {0, 1};
-        double expectedResult = 800;
-        FormatCode formatCode = FormatCode.valueOf("IMG");
-        Bundles bundles = new Bundles(formatCode);
-        double sum = Calculator.calculateSum(bundlesCharge, bundles);
-        assertEquals(expectedResult, sum);
-    }
-
-    @Test
-    void calculateTestFour() throws IOException {
+    void testCalculateOrderCostVID() throws IOException {
         //127 VID
-        int numOfOrder = 127;
+        String formatCode = "VID";
+        int numOfItem = 127;
         double expectedResult = 21990;
-        FormatCode formatCode = FormatCode.valueOf("VID");
-        BundlesCharge calculateResult = Calculator.calculate(numOfOrder, formatCode);
-        assertArrayEquals(new int[]{1, 0, 14}, calculateResult.getNumOfBundle());
-        assertEquals(expectedResult, calculateResult.getTotalCost());
+        ArrayList<Integer> expectedNumofBundle = new ArrayList<Integer>(Arrays.asList(1, 0, 14));
+
+        Calculator calculator = new Calculator();
+        Order order = new Order();
+        order.orderAdd(numOfItem, formatCode);
+        List<BundlesCharge> calculateResult = calculator.CalculatorOrderCost(order);
+
+        assertEquals(formatCode, calculateResult.get(0).getFormatCode());
+        assertEquals(numOfItem, calculateResult.get(0).getNumOfItem());
+        assertEquals(expectedNumofBundle, calculateResult.get(0).getNumOfBundle());
+        assertEquals(expectedResult, calculateResult.get(0).getTotalCost());
     }
 
     @Test
-    void calculateTestFive() throws IOException {
-        //7 VID
-        int numOfOrder = 7;
-        double expectedResult = 1530;
-        FormatCode formatCode = FormatCode.valueOf("VID");
-        BundlesCharge calculateResult = Calculator.calculate(numOfOrder, formatCode);
-        assertArrayEquals(new int[]{0, 0, 1}, calculateResult.getNumOfBundle());
-        assertEquals(expectedResult, calculateResult.getTotalCost());
-    }
-
-    @Test
-    void calculateSumTestThree() throws IOException {
-        int[] bundlesCharge = {1, 0, 14};
-        double expectedResult = 21990;
-        FormatCode formatCode = FormatCode.valueOf("VID");
-        Bundles bundles = new Bundles(formatCode);
-        double sum = Calculator.calculateSum(bundlesCharge, bundles);
-        assertEquals(expectedResult, sum);
-    }
-
-    @Test
-    void calculateSumTestFour() throws IOException {
-        int[] bundlesCharge = {0, 0, 1};
-        double expectedResult = 1530;
-        FormatCode formatCode = FormatCode.valueOf("VID");
-        Bundles bundles = new Bundles(formatCode);
-        double sum = Calculator.calculateSum(bundlesCharge, bundles);
-        assertEquals(expectedResult, sum);
-    }
-
-    @Test
-    void calculateTestSix() throws IOException {
+    void testCalculateOrderCostFLAC() throws IOException {
         //321 AUDIO
-        int numOfOrder = 321;
+        String formatCode = "FLAC";
+        int numOfItem = 321;
         double expectedResult = 40972.5;
-        FormatCode formatCode = FormatCode.valueOf("FLAC");
-        BundlesCharge calculateResult = Calculator.calculate(numOfOrder, formatCode);
-        assertArrayEquals(new int[]{0, 1, 35}, calculateResult.getNumOfBundle());
-        assertEquals(expectedResult, calculateResult.getTotalCost());
-    }
+        ArrayList<Integer> expectedNumofBundle = new ArrayList<Integer>(Arrays.asList(0, 1, 35));
 
-    @Test
-    void calculateTestSeven() throws IOException {
-        //2 AUDIO
-        int numOfOrder = 2;
-        double expectedResult = 427.5;
-        FormatCode formatCode = FormatCode.valueOf("FLAC");
-        BundlesCharge calculateResult = Calculator.calculate(numOfOrder, formatCode);
-        assertArrayEquals(new int[]{1, 0, 0}, calculateResult.getNumOfBundle());
-        assertEquals(expectedResult, calculateResult.getTotalCost());
-    }
+        Calculator calculator = new Calculator();
+        Order order = new Order();
+        order.orderAdd(numOfItem, formatCode);
+        List<BundlesCharge> calculateResult = calculator.CalculatorOrderCost(order);
 
-    @Test
-    void calculateTestEight() throws IOException {
-        //100 AUDIO
-        int numOfOrder = 100;
-        double expectedResult = 13050;
-        FormatCode formatCode = FormatCode.valueOf("FLAC");
-        BundlesCharge calculateResult = Calculator.calculate(numOfOrder, formatCode);
-        assertArrayEquals(new int[]{1, 0, 11}, calculateResult.getNumOfBundle());
-        assertEquals(expectedResult, calculateResult.getTotalCost());
-    }
-
-    @Test
-    void calculateSumTestFive() throws IOException {
-        int[] bundlesCharge = {1, 0, 0};
-        double expectedResult = 427.5;
-        FormatCode formatCode = FormatCode.valueOf("FLAC");
-        Bundles bundles = new Bundles(formatCode);
-        double sum = Calculator.calculateSum(bundlesCharge, bundles);
-        assertEquals(expectedResult, sum);
-    }
-
-    @Test
-    void calculateSumTestSix() throws IOException {
-        int[] bundlesCharge = {1, 0, 11};
-        double expectedResult = 13050;
-        FormatCode formatCode = FormatCode.valueOf("FLAC");
-        Bundles bundles = new Bundles(formatCode);
-        double sum = Calculator.calculateSum(bundlesCharge, bundles);
-        assertEquals(expectedResult, sum);
+        assertEquals(formatCode, calculateResult.get(0).getFormatCode());
+        assertEquals(numOfItem, calculateResult.get(0).getNumOfItem());
+        assertEquals(expectedNumofBundle, calculateResult.get(0).getNumOfBundle());
+        assertEquals(expectedResult, calculateResult.get(0).getTotalCost());
     }
 }

@@ -37,14 +37,14 @@ A successfully passing test(s) that demonstrates the following output: (The form
   1 x 3 $570
 ```
 
-## Task Requirement:  
-1. Using Java 
+## Task Requirement:
+1. Using Java
 2. Object-oriented programming (OOP)
-3. Using gradle   
-4. Using Java 8 Stream 
-5. Using Java Lambda if you can   
-6. Using Lombok   
-7. Using Java Logging instead of system.out.println   
+3. Using gradle
+4. Using Java 8 Stream
+5. Using Java Lambda if you can
+6. Using Lombok
+7. Using Java Logging instead of system.out.println
 8. Adding some unit tests (JUnit 5)
 9. Considering to Separation of concerns（SoC）
 
@@ -53,56 +53,67 @@ A successfully passing test(s) that demonstrates the following output: (The form
 main
 ```
 |-- java
-        |-- Bundles
-        |-- BundlesCharge
+    |-- Controller
         |-- Calculator
-        |-- FormatCode
-        |-- Main
-        |-- OrderItem
+        |-- GetInput
         |-- PrintResult
+    |-- Model
+        |-- Bundle
+        |-- BundlePlan
+        |-- BundlesCharge
+        |-- Order
+        |-- OrderItem
+    |-- Main
 |-- resources
-      |-- config.properties
+      |-- Configuration.JSON
 
 test
 |-- java
-      |-- BundlesTest
+      |-- BundlesPlanTest
       |-- CalculatorTest
-      |-- MainFunctionTest
-      |-- PrintResultTest
+      |-- InputTest
+
 ```
 
-Main.java is the starting point of the program, being responsible for inputting and outputting.
+Main.java is for the whole process of the bundle calculator.
 
-Calculator.java is the class to return BundlesCharge which includes bundlesCharge and totalCost.
+Calculator.java is to return BundlesCharge which includes bundlesCharge and totalCost.
 
-config.properties store the configurable parameters for different types of bundles.
+GetInput.java is to get the order that users input.
 
-OrderItem.java is the order for a specific type of bundle.
+PrintResult to print out the result.
 
-FormatCode.java is the enumeration of format code.
+Bundle.java has the number of post and cost of bundle.
 
-BundlesCharge.java  has an array of the number of bundles and the total cost.
+BundlePlan.java is match the format code and the price of the bundles.
 
-Bundles.java are different types of bundles.
+BundlesCharge.java is the result of the order.
 
-Bundles.java is to print out the result.
+Order.java is the input.
 
-BundlesTest.java are the JUnit 5 tests for Bundles.java.
+OrderItem.java is the order items of the order.
 
-CalculatorTest.java are the JUnit 5 tests for Calculator.java.
+Configuration.JSON store the price of bundles.
 
-MainFunctionTest.java are the JUnit 5 tests for Main.java.
+BundlesPlanTest.java are the JUnit 5 tests for BundlePlan.
 
-PrintResultTest.java are the JUnit 5 tests for PrintResult.java.
+CalculatorTest.java are the JUnit 5 tests for Calculator.
+
+InputTest.java are the JUnit 5 tests for GetInput.
 
 ## Run the program
-Run the program by running Main.java 
+Run the program by running Main.java
+
+Or Run  the below command in the project directory/out/artifacts/AssignmentTmp1_jar
+```
+java -jar AssignmentTmp1.jar
+```
 
 The program also can convert the lower case format code to upper case.
 If '2 IMG' and '5 IMG' are input, the program can add them together as '7 IMG'
 When the input is not valid, return the warning.
 
-You can input: 
+You can input:
 ```
 10 IMG
 15 FLAC
