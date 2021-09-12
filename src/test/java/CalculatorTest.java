@@ -1,7 +1,7 @@
-import Controller.Calculator;
-import Model.BundlesCharge;
-import Model.Order;
+import entities.BundlesCharge;
+import entities.Order;
 import org.junit.jupiter.api.Test;
+import service.OrderProcessor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,10 +20,10 @@ class CalculatorTest {
         double expectedResult = 8450;
         ArrayList<Integer> expectedNumofBundle = new ArrayList<Integer>(Arrays.asList(1, 10));
 
-        Calculator calculator = new Calculator();
+        OrderProcessor orderProcessor = new OrderProcessor();
         Order order = new Order();
-        order.orderAdd(numOfItem, formatCode);
-        List<BundlesCharge> calculateResult = calculator.CalculatorOrderCost(order);
+        order.addItem(numOfItem, formatCode);
+        List<BundlesCharge> calculateResult = orderProcessor.processOrder(order);
 
         assertEquals(formatCode, calculateResult.get(0).getFormatCode());
         assertEquals(numOfItem, calculateResult.get(0).getNumOfItem());
@@ -39,10 +39,10 @@ class CalculatorTest {
         double expectedResult = 21990;
         ArrayList<Integer> expectedNumofBundle = new ArrayList<Integer>(Arrays.asList(1, 0, 14));
 
-        Calculator calculator = new Calculator();
+        OrderProcessor orderProcessor = new OrderProcessor();
         Order order = new Order();
-        order.orderAdd(numOfItem, formatCode);
-        List<BundlesCharge> calculateResult = calculator.CalculatorOrderCost(order);
+        order.addItem(numOfItem, formatCode);
+        List<BundlesCharge> calculateResult = orderProcessor.processOrder(order);
 
         assertEquals(formatCode, calculateResult.get(0).getFormatCode());
         assertEquals(numOfItem, calculateResult.get(0).getNumOfItem());
@@ -58,10 +58,10 @@ class CalculatorTest {
         double expectedResult = 40972.5;
         ArrayList<Integer> expectedNumofBundle = new ArrayList<Integer>(Arrays.asList(0, 1, 35));
 
-        Calculator calculator = new Calculator();
+        OrderProcessor orderProcessor = new OrderProcessor();
         Order order = new Order();
-        order.orderAdd(numOfItem, formatCode);
-        List<BundlesCharge> calculateResult = calculator.CalculatorOrderCost(order);
+        order.addItem(numOfItem, formatCode);
+        List<BundlesCharge> calculateResult = orderProcessor.processOrder(order);
 
         assertEquals(formatCode, calculateResult.get(0).getFormatCode());
         assertEquals(numOfItem, calculateResult.get(0).getNumOfItem());

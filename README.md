@@ -53,11 +53,12 @@ A successfully passing test(s) that demonstrates the following output: (The form
 main
 ```
 |-- java
-    |-- Controller
+    |-- service
         |-- Calculator
-        |-- GetInput
-        |-- PrintResult
-    |-- Model
+        |-- InputProcessor
+        |-- OrderProcessor
+        |-- OrderResultPrinter
+    |-- entities
         |-- Bundle
         |-- BundlePlan
         |-- BundlesCharge
@@ -71,7 +72,7 @@ test
 |-- java
       |-- BundlesPlanTest
       |-- CalculatorTest
-      |-- InputTest
+      |-- InputProcessorTest
 
 ```
 
@@ -79,9 +80,11 @@ Main.java is for the whole process of the bundle calculator.
 
 Calculator.java is to return BundlesCharge which includes bundlesCharge and totalCost.
 
-GetInput.java is to get the order that users input.
+InputProcessor.java is to get the order that users input.
 
-PrintResult to print out the result.
+OrderProcessor.java is to process the order.
+
+OrderResultPrinter.java to print out the result.
 
 Bundle.java has the number of post and cost of bundle.
 
@@ -99,12 +102,26 @@ BundlesPlanTest.java are the JUnit 5 tests for BundlePlan.
 
 CalculatorTest.java are the JUnit 5 tests for Calculator.
 
-InputTest.java are the JUnit 5 tests for GetInput.
+InputProcessorTest.java are the JUnit 5 tests for GetInput.
 
 ## Run the program
 Run the program by running Main.java
 
-Or Run  the below command in the project directory/out/artifacts/AssignmentTmp1_jar
+Or go to File
+-> Project Structure 
+-> Artifacts 
+-> Click the 'plus' sign 
+-> click JAR 
+-> From modules with dependencies
+-> Pick up the Main class
+-> Click Ok
+-> Click Ok 
+
+Click 'Build'-> Build Artifact-> Click 'Build' in the popup dialog
+
+Copy resources folder to './out/artifacts/AssignmentTmp1_jar'
+
+Run  the below command in the project directory/out/artifacts/AssignmentTmp1_jar
 ```
 java -jar AssignmentTmp1.jar
 ```

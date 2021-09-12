@@ -1,24 +1,25 @@
-package Model;
+package entities;
 
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class Bundle {
-    private ArrayList<Integer> numOfPost;
-    private ArrayList<Double> costOfBundle;
+    private List<Integer> numOfPost;
+    private List<Double> costOfBundle;
 
     public Bundle() {
         this.numOfPost = new ArrayList<>();
         this.costOfBundle = new ArrayList<>();
     }
 
-    public void numOfPostAdd(int post) {
+    public void addNumOfPost(int post) {
         this.numOfPost.add(post);
     }
 
-    public void costOfBundleAdd(double cost) {
+    public void addCostOfBundle(double cost) {
         this.costOfBundle.add(cost);
     }
 }

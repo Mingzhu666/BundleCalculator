@@ -1,4 +1,4 @@
-package Model;
+package entities;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -7,25 +7,27 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 @Data
 @Slf4j
 public class BundlePlan {
-    private HashMap<String, Bundle> bundlePlans;
+    private Map<String, Bundle> bundlePlans;
 
     public BundlePlan() {
-        bundlePlans = new HashMap<String, Bundle>();
+        bundlePlans = new HashMap<>();
         InputStream in = getClass()
                 .getClassLoader().getResourceAsStream("Configuration.JSON");
 
         if (in == null)
             try {
                 in = new FileInputStream(System.getProperty("user.dir") + "/resources/Configuration.JSON");
-            } catch (Exception e) {
-                log.error(e.toString());
+            } catch (FileNotFoundException e) {
+                log.error("Cannot find order", e);
             }
 
         JSONObject json = new JSONObject(new JSONTokener(in));
@@ -35,11 +37,11 @@ public class BundlePlan {
             Bundle bundle = new Bundle();
             JSONArray jsonNumofPostArray = json.getJSONObject(key).getJSONArray("Bundle");
             jsonNumofPostArray.forEach((postNumber) -> {
-                bundle.numOfPostAdd((Integer) postNumber);
+                bundle.addNumOfPost((Integer) postNumber);
             });
             JSONArray jsonCostOfBundleArray = json.getJSONObject(key).getJSONArray("Cost");
             jsonCostOfBundleArray.forEach((bundlePrize) -> {
-                bundle.costOfBundleAdd(Double.parseDouble(bundlePrize.toString()));
+                bundle.addCostOfBundle(Double.parseDouble(bundlePrize.toString()));
             });
 
             this.bundlePlans.put(key, bundle);

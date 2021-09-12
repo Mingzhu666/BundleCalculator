@@ -1,14 +1,15 @@
-package Model;
+package entities;
 
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class BundlesCharge {
     private String formatCode;
     private int numOfItem;
-    private ArrayList<Integer> numOfBundle;
+    private List<Integer> numOfBundle;
     private double totalCost;
 
     public BundlesCharge(String formatCode, int numofItem, ArrayList<Integer> numOfBundle, double totalCost) {

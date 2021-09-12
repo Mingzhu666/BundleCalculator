@@ -1,9 +1,9 @@
-import Controller.Calculator;
-import Controller.GetInput;
-import Controller.PrintResult;
-import Model.BundlesCharge;
-import Model.Order;
+import entities.BundlesCharge;
+import entities.Order;
 import org.apache.log4j.BasicConfigurator;
+import service.InputProcessor;
+import service.OrderProcessor;
+import service.OrderResultPrinter;
 
 import java.util.List;
 
@@ -13,14 +13,14 @@ public class Main {
     public static void main(String[] args) {
         BasicConfigurator.configure();
 
-        GetInput in = new GetInput();
+        InputProcessor in = new InputProcessor();
         Order order = in.getOrder();
 
-        Calculator calculator = new Calculator();
-        List<BundlesCharge> bundlesCharges = calculator.CalculatorOrderCost(order);
+        OrderProcessor orderProcessor = new OrderProcessor();
+        List<BundlesCharge> bundlesCharges = orderProcessor.processOrder(order);
 
-        PrintResult printResult = new PrintResult();
-        printResult.printResult(bundlesCharges);
+        OrderResultPrinter orderResultPrinter = new OrderResultPrinter();
+        orderResultPrinter.printResult(bundlesCharges);
     }
 
 

@@ -1,16 +1,17 @@
-import Controller.GetInput;
+import entities.OrderItem;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import service.InputProcessor;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class InputTest {
-    private static HashMap<String, Integer> booking;
+public class InputProcessorTest {
+    private static List<OrderItem> booking;
 
     @BeforeAll
     static void InputInitial() {
@@ -19,23 +20,26 @@ public class InputTest {
         userInput.add("15 Vid");
         userInput.add("30 flac");
 
-        GetInput getInput = new GetInput();
-        booking = getInput.OrderParser(userInput);
+        InputProcessor inputProcessor = new InputProcessor();
+        booking = inputProcessor.orderParser(userInput);
     }
 
     @Test
     void testOrderParserIMG_legalInput() {
-        assertEquals(10, booking.get("IMG"));
+        OrderItem orderItem = new OrderItem(10, "IMG");
+        assertEquals(orderItem, booking.get(0));
     }
 
     @Test
     void testOrderParserVID_legalInput() {
-        assertEquals(15, booking.get("VID"));
+        OrderItem orderItem = new OrderItem(15, "VID");
+        assertEquals(orderItem, booking.get(1));
     }
 
     @Test
     void testOrderParserFLAC_legalInput() {
-        assertEquals(30, booking.get("FLAC"));
+        OrderItem orderItem = new OrderItem(30, "FLAC");
+        assertEquals(orderItem, booking.get(2));
     }
 
     @Test
@@ -44,9 +48,9 @@ public class InputTest {
 
         ArrayList<String> userInput = new ArrayList<>();
         userInput.add("123456");
-        GetInput getInput = new GetInput();
+        InputProcessor inputProcessor = new InputProcessor();
         assertThrows(Exception.class, () ->
-                getInput.OrderParser(userInput));
+                inputProcessor.orderParser(userInput));
     }
 
 }

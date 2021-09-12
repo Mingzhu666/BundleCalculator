@@ -1,5 +1,5 @@
-import Model.Bundle;
-import Model.BundlePlan;
+import entities.Bundle;
+import entities.BundlePlan;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -53,11 +53,11 @@ class BundlesPlanTest {
         BundlePlan bundlePlan = new BundlePlan();
 
         Bundle bundle = new Bundle();
-        bundle.numOfPostAdd(5);
-        bundle.numOfPostAdd(10);
+        bundle.addNumOfPost(5);
+        bundle.addNumOfPost(10);
 
-        bundle.costOfBundleAdd(450);
-        bundle.costOfBundleAdd(800);
+        bundle.addCostOfBundle(450);
+        bundle.addCostOfBundle(800);
         assertEquals(bundle, bundlePlan.getBundle("IMG"));
     }
 }

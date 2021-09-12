@@ -1,15 +1,15 @@
-package Controller;
+package service;
 
-import Model.Bundle;
-import Model.BundlePlan;
-import Model.BundlesCharge;
+import entities.Bundle;
+import entities.BundlePlan;
+import entities.BundlesCharge;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class PrintResult {
+//printer
+public class OrderResultPrinter {
     public void printResult(List<BundlesCharge> bundlesCharges) {
         bundlesCharges.forEach(bundlesCharge -> {
 
@@ -17,7 +17,7 @@ public class PrintResult {
 
 
             Bundle bundles = new BundlePlan().getBundle(bundlesCharge.getFormatCode());
-            ArrayList<Double> costOfBundle = bundles.getCostOfBundle();
+            List<Double> costOfBundle = bundles.getCostOfBundle();
 
             for (int i = costOfBundle.size() - 1; i >= 0; i--) {
                 if (bundlesCharge.getNumOfBundle().get(i) > 0) {
