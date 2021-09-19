@@ -9,14 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class InputProcessor {
-    public Order hashmapToOrder(List<OrderItem> booking) {
+    public Order convertHashmapToOrder(List<OrderItem> booking) {
         Order orders = new Order();
-        booking.forEach(orderItem -> {
-            orders.addItem(orderItem);
-        });
+
+        booking.stream().
+                forEach(orderItem -> orders.addItem(orderItem));
+
         return orders;
     }
 
@@ -27,43 +29,41 @@ public class InputProcessor {
 
         log.info("Enter something here : ");
 
-        Scanner scanIn = new Scanner(System.in);
-        while (scanIn.hasNextLine()) {
-            input = scanIn.nextLine();
+        try (Scanner scanIn = new Scanner(System.in)){
+            while (scanIn.hasNextLine()) {
+                input = scanIn.nextLine();
 
-            if (input.equals("end")) {
-                break;
+                if (input.equals("end")) {
+                    break;
+                }
+                inputs.add(input);
             }
-            inputs.add(input);
+
+            List<OrderItem> booking = orderParser(inputs);
+            scanIn.close();
+            return convertHashmapToOrder(booking);
+        }
+        catch (Exception e){
+            log.error("Input detect error", e);
         }
 
-        List<OrderItem> booking = orderParser(inputs);
-
-        scanIn.close();
-        return hashmapToOrder(booking);
+        return convertHashmapToOrder(new ArrayList<>());
     }
 
-    public List<OrderItem> orderParser(ArrayList<String> inputs) {
+    public List<OrderItem> orderParser(List<String> inputs) {
         BundlePlan bundlePlan = new BundlePlan();
-        List<OrderItem> booking = new ArrayList<>();
 
-        inputs.forEach((input) -> {
-            try {
-                String[] processData = input.split(" ");
+        try {
+            return inputs.stream()
+                    .filter(input -> bundlePlan.keyCheck(input.split(" ")[1].toUpperCase(Locale.ROOT)))
+                    .map(input -> new OrderItem(Integer.parseInt(input.split(" ")[0]), input.split(" ")[1].toUpperCase(Locale.ROOT)))
+                    .collect(Collectors.toList());
+        }
+        catch (Exception e){
+            log.error("Illegal input detected. System exit", e);
+            System.exit(1);
+        }
 
-                String formatCode = processData[1].toUpperCase(Locale.ROOT);
-                int numOfBooking = Integer.parseInt(processData[0]);
-                if (bundlePlan.keyCheck(formatCode)) {
-                    booking.add(new OrderItem(numOfBooking, formatCode));
-                } else {
-                    log.warn("invalid item detected! The item '" + formatCode + "' will be skipped.");
-                }
-            } catch (Exception e) {
-                log.error("Illegal input detected!", e);
-                throw e;
-            }
-        });
-
-        return booking;
+        return new ArrayList<>();
     }
 }

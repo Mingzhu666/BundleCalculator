@@ -35,8 +35,8 @@ public class BundlePlan {
 
         keys.forEach((key) -> {
             Bundle bundle = new Bundle();
-            JSONArray jsonNumofPostArray = json.getJSONObject(key).getJSONArray("Bundle");
-            jsonNumofPostArray.forEach((postNumber) -> {
+            JSONArray jsonNumbPostArray = json.getJSONObject(key).getJSONArray("Bundle");
+            jsonNumbPostArray.forEach((postNumber) -> {
                 bundle.addNumOfPost((Integer) postNumber);
             });
             JSONArray jsonCostOfBundleArray = json.getJSONObject(key).getJSONArray("Cost");

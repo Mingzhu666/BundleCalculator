@@ -1,7 +1,10 @@
 import entities.BundlesCharge;
 import entities.Order;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import service.Calculator;
 import service.OrderProcessor;
+import service.TotalPriceCalculator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,8 +15,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class CalculatorTest {
+    private static Calculator calculator;
+    private static TotalPriceCalculator totalPriceCalculator;
+
+    @BeforeAll
+    static void calculatorTestInitial(){
+        calculator = new Calculator();
+        totalPriceCalculator = new TotalPriceCalculator();
+    }
+
     @Test
-    void testCalculateOrderCostIMG() throws IOException {
+    void testCalculateOrderCostIMG() {
         //105 IMG
         String formatCode = "IMG";
         int numOfItem = 105;
@@ -23,7 +35,7 @@ class CalculatorTest {
         OrderProcessor orderProcessor = new OrderProcessor();
         Order order = new Order();
         order.addItem(numOfItem, formatCode);
-        List<BundlesCharge> calculateResult = orderProcessor.processOrder(order);
+        List<BundlesCharge> calculateResult = orderProcessor.processOrder(order, calculator, totalPriceCalculator);
 
         assertEquals(formatCode, calculateResult.get(0).getFormatCode());
         assertEquals(numOfItem, calculateResult.get(0).getNumOfItem());
@@ -32,7 +44,7 @@ class CalculatorTest {
     }
 
     @Test
-    void testCalculateOrderCostVID() throws IOException {
+    void testCalculateOrderCostVID() {
         //127 VID
         String formatCode = "VID";
         int numOfItem = 127;
@@ -42,7 +54,7 @@ class CalculatorTest {
         OrderProcessor orderProcessor = new OrderProcessor();
         Order order = new Order();
         order.addItem(numOfItem, formatCode);
-        List<BundlesCharge> calculateResult = orderProcessor.processOrder(order);
+        List<BundlesCharge> calculateResult = orderProcessor.processOrder(order, calculator, totalPriceCalculator);
 
         assertEquals(formatCode, calculateResult.get(0).getFormatCode());
         assertEquals(numOfItem, calculateResult.get(0).getNumOfItem());
@@ -51,7 +63,7 @@ class CalculatorTest {
     }
 
     @Test
-    void testCalculateOrderCostFLAC() throws IOException {
+    void testCalculateOrderCostFLAC() {
         //321 AUDIO
         String formatCode = "FLAC";
         int numOfItem = 321;
@@ -61,7 +73,7 @@ class CalculatorTest {
         OrderProcessor orderProcessor = new OrderProcessor();
         Order order = new Order();
         order.addItem(numOfItem, formatCode);
-        List<BundlesCharge> calculateResult = orderProcessor.processOrder(order);
+        List<BundlesCharge> calculateResult = orderProcessor.processOrder(order, calculator, totalPriceCalculator);
 
         assertEquals(formatCode, calculateResult.get(0).getFormatCode());
         assertEquals(numOfItem, calculateResult.get(0).getNumOfItem());

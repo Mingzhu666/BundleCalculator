@@ -6,6 +6,7 @@ import entities.BundlesCharge;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Slf4j
 //printer
@@ -19,11 +20,11 @@ public class OrderResultPrinter {
             Bundle bundles = new BundlePlan().getBundle(bundlesCharge.getFormatCode());
             List<Double> costOfBundle = bundles.getCostOfBundle();
 
-            for (int i = costOfBundle.size() - 1; i >= 0; i--) {
-                if (bundlesCharge.getNumOfBundle().get(i) > 0) {
+            IntStream.iterate(costOfBundle.size() - 1, i -> i - 1).limit(costOfBundle.size())
+                    .filter(i -> bundlesCharge.getNumOfBundle().get(i) > 0)
+                    .forEach(i -> {
                     log.info("   " + bundlesCharge.getNumOfBundle().get(i) + " x " + bundles.getNumOfPost().get(i) + " $" + bundlesCharge.getNumOfBundle().get(i) * bundles.getCostOfBundle().get(i));
-                }
-            }
+            });
         });
     }
 }

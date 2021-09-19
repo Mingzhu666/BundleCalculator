@@ -23,13 +23,7 @@ public class Calculator {
         return calculate(itemLeft, result, --pointer, bundle);
     }
 
-    public double calculateItemTotalCost(int[] bundlesCharge, Bundle bundle) {
-        double result = 0;
-        for (int i = 0; i < bundle.getNumOfPost().size(); i++) {
-            result += bundlesCharge[i] * bundle.getCostOfBundle().get(i);
-        }
-        return result;
-    }
+
 
 
 }

@@ -58,6 +58,7 @@ main
         |-- InputProcessor
         |-- OrderProcessor
         |-- OrderResultPrinter
+        |-- TotalPriceCalculator
     |-- entities
         |-- Bundle
         |-- BundlePlan
@@ -85,6 +86,8 @@ InputProcessor.java is to get the order that users input.
 OrderProcessor.java is to process the order.
 
 OrderResultPrinter.java to print out the result.
+
+TotalPriceCalculator.java to get the total price.
 
 Bundle.java has the number of post and cost of bundle.
 
